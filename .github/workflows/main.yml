@@ -28,6 +28,6 @@ jobs:
           name: krutils-go
           tag: latest
           version: latest
-          token: ${{GTOKEN}}
+          token: ${{secrets.GTOKEN}}
 
 
