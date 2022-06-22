@@ -12,26 +12,26 @@ func init() {
 
 }
 
-func (*base64Util) Encode(v string) string {
-	return encodeBase64(v)
-}
-
-func (*base64Util) Decode(v string) (string, error) {
-	return decodeBase64(v)
-}
-
-func (*strUtil) IntToStr(v int64) string {
-	return NumToStr(v)
-}
-
-func (*strUtil) FloatToStr(v float64) string {
-	return NumToStr(v)
-}
-
-func (*strUtil) ToStr(v any) string {
-	return toStr(v)
-}
-
-func (*md5Util) Md5(v string) string {
-	return MD5(v)
-}
+// func (*base64Util) Encode(v string) string {
+// 	return encodeBase64(v)
+// }
+//
+// func (*base64Util) Decode(v string) (string, error) {
+// 	return decodeBase64(v)
+// }
+//
+// func (*strUtil) IntToStr(v int64) string {
+// 	return NumToStr(v)
+// }
+//
+// func (*strUtil) FloatToStr(v float64) string {
+// 	return NumToStr(v)
+// }
+//
+// func (*strUtil) ToStr(v any) string {
+// 	return toStr(v)
+// }
+//
+// func (*md5Util) Md5(v string) string {
+// 	return MD5(v)
+// }
