@@ -1,6 +1,7 @@
 package str_util
 
 import (
+	"fmt"
 	"reflect"
 	"strconv"
 	"strings"
@@ -54,24 +55,28 @@ func TimestampToStr(v int64, pattern string) string {
 	return TimeToStr(t, pattern)
 }
 
-func toStr(v any) string {
+func ToStr(v any) string {
 	switch reflect.TypeOf(v).Kind() {
 	case reflect.Struct:
-	case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64, reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64:
-	case reflect.Float32:
-	case reflect.Float64:
-	case reflect.Chan:
-	case reflect.Bool:
-	case reflect.Pointer:
-	case reflect.Array:
-	case reflect.Slice:
-	case reflect.Map:
-	case reflect.Func:
-	case reflect.Interface:
-	case reflect.Complex64:
-	case reflect.Complex128:
-	case reflect.UnsafePointer:
-
+	case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
+		return NumToStr(reflect.ValueOf(v).Int())
+	case reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64:
+		return NumToStr(reflect.ValueOf(v).Uint())
+	case reflect.Float32, reflect.Float64:
+		return NumToStr(reflect.ValueOf(v).Float())
+	// case reflect.Chan:
+	// case reflect.Bool:
+	// case reflect.Pointer:
+	// case reflect.Array:
+	// case reflect.Slice:
+	// case reflect.Map:
+	// case reflect.Func:
+	// case reflect.Interface:
+	// case reflect.Complex64:
+	// case reflect.Complex128:
+	// case reflect.UnsafePointer:
+	default:
+		return fmt.Sprintf("%v", v)
 	}
-	return ""
+	return fmt.Sprintf("%v", v)
 }
