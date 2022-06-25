@@ -80,3 +80,66 @@ func ToStr(v any) string {
 	}
 	return fmt.Sprintf("%v", v)
 }
+
+func SubStr(s string, start int, end int) string {
+	if len(s) < end {
+		return s
+	}
+	tmp := []rune(s)
+	if start < 0 {
+		return string(tmp[:end])
+	}
+	if end < 0 {
+		return string(tmp[start:])
+	}
+	return string(tmp[start:end])
+}
+
+func Len(s string) int {
+	return len([]rune(s))
+}
+
+func Contains(s string, substr ...string) bool {
+	for _, v := range substr {
+		if strings.Contains(s, v) {
+			return true
+		}
+	}
+	return false
+}
+
+func ContainsSlice(s string, substr []string) bool {
+	for _, v := range substr {
+		if strings.Contains(s, v) {
+			return true
+		}
+	}
+	return false
+}
+
+func Prefix(s string, prefix ...string) bool {
+	for _, v := range prefix {
+		if strings.HasPrefix(s, v) {
+			return true
+		}
+	}
+	return false
+}
+
+func Suffix(s string, suffix ...string) bool {
+	for _, v := range suffix {
+		if strings.HasSuffix(s, v) {
+			return true
+		}
+	}
+	return false
+}
+
+func Equals(s string, str ...string) bool {
+	for _, v := range str {
+		if s == v {
+			return true
+		}
+	}
+	return false
+}
