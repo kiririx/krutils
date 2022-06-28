@@ -7,6 +7,8 @@ import (
 	"errors"
 	"fmt"
 	uuid "github.com/satori/go.uuid"
+	"math/rand"
+	"time"
 )
 
 func Base64Encode(v string) string {
@@ -34,4 +36,9 @@ func Sha256(v string) string {
 func UUID() string {
 	v := uuid.NewV4()
 	return fmt.Sprintf("%s", v)
+}
+
+func RandomInt(start, end int) int {
+	rand.Seed(time.Now().UnixNano())
+	return rand.Intn(end-start) + start
 }

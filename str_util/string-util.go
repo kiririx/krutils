@@ -99,46 +99,73 @@ func Len(s string) int {
 	return len([]rune(s))
 }
 
-func Contains(s string, substr ...string) bool {
-	for _, v := range substr {
-		if strings.Contains(s, v) {
-			return true
+func Contains[T string | []string](s string, substr ...T) bool {
+	val := reflect.ValueOf(substr)
+	for i := 0; i < val.Len(); i++ {
+		kind := val.Index(i).Kind()
+		switch kind {
+		case reflect.String:
+			if strings.Contains(s, val.Index(i).String()) {
+				return true
+			}
+		case reflect.Slice:
+			if Contains(s, val.Index(i).Interface().([]string)...) {
+				return true
+			}
 		}
 	}
 	return false
 }
 
-func ContainsSlice(s string, substr []string) bool {
-	for _, v := range substr {
-		if strings.Contains(s, v) {
-			return true
+func StartWith[T string | []string](s string, prefix ...T) bool {
+	val := reflect.ValueOf(prefix)
+	for i := 0; i < val.Len(); i++ {
+		kind := val.Index(i).Kind()
+		switch kind {
+		case reflect.String:
+			if strings.HasPrefix(s, val.Index(i).String()) {
+				return true
+			}
+		case reflect.Slice:
+			if StartWith(s, val.Index(i).Interface().([]string)...) {
+				return true
+			}
 		}
 	}
 	return false
 }
 
-func Prefix(s string, prefix ...string) bool {
-	for _, v := range prefix {
-		if strings.HasPrefix(s, v) {
-			return true
+func EndWith(s string, suffix ...string) bool {
+	val := reflect.ValueOf(suffix)
+	for i := 0; i < val.Len(); i++ {
+		kind := val.Index(i).Kind()
+		switch kind {
+		case reflect.String:
+			if strings.HasSuffix(s, val.Index(i).String()) {
+				return true
+			}
+		case reflect.Slice:
+			if EndWith(s, val.Index(i).Interface().([]string)...) {
+				return true
+			}
 		}
 	}
 	return false
 }
 
-func Suffix(s string, suffix ...string) bool {
-	for _, v := range suffix {
-		if strings.HasSuffix(s, v) {
-			return true
-		}
-	}
-	return false
-}
-
-func Equals(s string, str ...string) bool {
-	for _, v := range str {
-		if s == v {
-			return true
+func Equals[T string | []string](s string, str ...T) bool {
+	val := reflect.ValueOf(str)
+	for i := 0; i < val.Len(); i++ {
+		kind := val.Index(i).Kind()
+		switch kind {
+		case reflect.String:
+			if val.Index(i).String() == s {
+				return true
+			}
+		case reflect.Slice:
+			if Equals(s, val.Index(i).Interface().([]string)...) {
+				return true
+			}
 		}
 	}
 	return false

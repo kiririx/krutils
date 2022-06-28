@@ -4,12 +4,15 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"net/http"
+	"net/url"
 	"strings"
 	"time"
 )
 
 type HttpClient struct {
-	client *http.Client
+	client  *http.Client
+	proxy   string
+	headers map[string]string
 }
 
 func Client(timeout time.Duration) *HttpClient {
@@ -20,8 +23,50 @@ func Client(timeout time.Duration) *HttpClient {
 	}
 }
 
+func (c *HttpClient) Proxy(proxyUrl string) *HttpClient {
+	if c.client == nil {
+		panic("client is nil")
+	}
+	uri, err := url.Parse(proxyUrl)
+	if err != nil {
+		panic(err)
+	}
+	c.client.Transport = &http.Transport{Proxy: http.ProxyURL(uri)}
+	c.proxy = proxyUrl
+	return c
+}
+
+func (c *HttpClient) Headers(headers map[string]string) *HttpClient {
+	if c.client == nil {
+		panic("client is nil")
+	}
+	c.headers = headers
+	return c
+}
+
 func (c *HttpClient) Get(url string) (*http.Response, error) {
+	if ok, resp, err := c.customHeaders(url); ok {
+		return resp, err
+	}
 	return c.client.Get(url)
+}
+
+func (c *HttpClient) customHeaders(url string) (bool, *http.Response, error) {
+	if len(c.headers) > 0 {
+		req, err := http.NewRequest(http.MethodGet, url, nil)
+		if err != nil {
+			return false, nil, err
+		}
+		for k, v := range c.headers {
+			req.Header.Set(k, v)
+		}
+		resp, err := c.client.Do(req)
+		if err != nil {
+			return false, nil, err
+		}
+		return true, resp, nil
+	}
+	return false, nil, nil
 }
 
 func (c *HttpClient) GetJSON(url string, body map[string]string) (string, error) {
@@ -36,9 +81,14 @@ func (c *HttpClient) GetJSON(url string, body map[string]string) (string, error)
 		}
 	}
 	url = url[:len(url)-1]
-	resp, err := c.client.Get(url)
-	if err != nil {
-		return "", err
+	var resp *http.Response
+	if ok, _resp, err := c.customHeaders(url); ok {
+		resp = _resp
+	} else {
+		resp, err = c.client.Get(url)
+		if err != nil {
+			return "", err
+		}
 	}
 	defer resp.Body.Close()
 	b, err := ioutil.ReadAll(resp.Body)
