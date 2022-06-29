@@ -23,11 +23,14 @@ jobs:
       - name: Release Drafter
         # You may pin to the exact commit or the version.
         # uses: release-drafter/release-drafter@e9ee02fbac03d922bac6212003695e8358dd88b0
-        uses: release-drafter/release-drafter@v5.19.0
-        with:
-          name: krutils-go
-          tag: latest
-          version: latest
-          token: ${{secrets.GTOKEN}}
+      - uses: release-drafter/release-drafter@v5.19.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GTOKEN }}
+
+#        with:
+#          name: krutils-go
+#          tag: latest
+#          version: latest
+#          token: ${{secrets.GTOKEN}}
 
 
