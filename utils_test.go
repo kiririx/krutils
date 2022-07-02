@@ -6,5 +6,9 @@ import (
 )
 
 func TestConv(t *testing.T) {
-	t.Log(str_util.ToStr(make(chan int)))
+	t.Log(str_util.Contains("张三", "三", "c"))
+}
+
+type ST struct {
+	a int
 }
