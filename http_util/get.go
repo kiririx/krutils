@@ -16,6 +16,24 @@ func (c *httpClient) Get(url string, query map[string]string) (*http.Response, e
 	})
 }
 
+func (c *httpClient) GetString(url string, query map[string]string) (string, error) {
+	url = GetURLWithQuery(url, query)
+	resp, err := c.do(&doReq{
+		url:         url,
+		method:      http.MethodGet,
+		contentType: "application/json",
+	})
+	if err != nil {
+		return "", errors.New(fmt.Sprintf("http get failed, url: {%s}, cause: {%v} ", url, err.Error()))
+	}
+	defer resp.Body.Close()
+	b, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return "", errors.New(fmt.Sprintf("read response body failed, url: {%s}, cause: {%v} ", url, err.Error()))
+	}
+	return string(b), nil
+}
+
 func (c *httpClient) GetJSON(url string, body map[string]string) (map[string]any, error) {
 	url = GetURLWithQuery(url, body)
 	resp, err := c.do(&doReq{

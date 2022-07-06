@@ -170,3 +170,7 @@ func Equals[T string | []string](s string, str ...T) bool {
 	}
 	return false
 }
+
+func TrimSpace(s string) string {
+	return strings.TrimSpace(s)
+}
