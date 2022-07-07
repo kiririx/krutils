@@ -28,6 +28,9 @@ func ResolveProperties(path string) (map[string]string, error) {
 		}
 		lineContent := string(line)
 		prop := strings.TrimSpace(lineContent)
+		if prop == "" {
+			continue
+		}
 		key := prop[:strings.Index(prop, "=")]
 		val := prop[strings.Index(prop, "=")+1:]
 		conf[key] = val
