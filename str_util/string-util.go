@@ -12,10 +12,6 @@ type num interface {
 	int | int32 | int8 | int64 | int16 | uint | uint16 | uint8 | uint32 | uint64 | float32 | float64
 }
 
-type integer interface {
-	int | int32 | int8 | int64 | int16 | uint | uint16 | uint8 | uint32 | uint64
-}
-
 func NumToStr[N num](v N) string {
 	switch reflect.TypeOf(v).Kind() {
 	case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64, reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64:
