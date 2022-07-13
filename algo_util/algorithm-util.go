@@ -39,8 +39,15 @@ func UUID() string {
 }
 
 func RandomInt(start, end int) int {
+	end += 1
+	if start < 0 || end < 0 {
+		return 0
+	}
 	if start == end {
 		return start
+	}
+	if start > end {
+		return end
 	}
 	rand.Seed(time.Now().UnixNano())
 	return rand.Intn(end-start) + start

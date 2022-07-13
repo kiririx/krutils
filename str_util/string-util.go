@@ -2,11 +2,14 @@ package str_util
 
 import (
 	"fmt"
+	"math/rand"
 	"reflect"
 	"strconv"
 	"strings"
 	"time"
 )
+
+var randStrList = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
 
 type num interface {
 	int | int32 | int8 | int64 | int16 | uint | uint16 | uint8 | uint32 | uint64 | float32 | float64
@@ -169,4 +172,12 @@ func Equals[T string | []string](s string, str ...T) bool {
 
 func TrimSpace(s string) string {
 	return strings.TrimSpace(s)
+}
+
+func RandomStrN(n int) string {
+	b := make([]rune, n)
+	for i := range b {
+		b[i] = randStrList[rand.Intn(n)]
+	}
+	return string(b)
 }
