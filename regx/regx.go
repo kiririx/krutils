@@ -1,6 +1,10 @@
 package regx
 
-import "regexp"
+import (
+	"reflect"
+	"regexp"
+	"strconv"
+)
 
 // IsURL return true if the string is a URL
 func IsURL(v string) bool {
@@ -17,6 +21,17 @@ func IsIdCard(v string) bool {
 
 func IsEmail(v string) bool {
 	return Matched(`^[a-zA-Z0-9.!#$%&'*+/=?^_`+"`"+`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$`, v)
+}
+
+func IsPort[T string | int](v T) bool {
+	switch reflect.TypeOf(v).Kind() {
+	case reflect.Int:
+		return reflect.ValueOf(v).Int() > 0
+	case reflect.String:
+		p, _ := strconv.Atoi(reflect.ValueOf(v).String())
+		return p > 0
+	}
+	return false
 }
 
 func Matched(pattern string, v string) bool {
