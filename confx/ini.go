@@ -1,7 +1,7 @@
-package conf_util
+package confx
 
 import (
-	"github.com/kiririx/krutils/str_util"
+	"github.com/kiririx/krutils/strx"
 	"io"
 	"os"
 	"regexp"
@@ -28,7 +28,7 @@ func ResolveIni(file *os.File) (Ini, error) {
 		}
 		lineContent := string(buf[:n])
 		// todo: struct复制
-		lineContent = str_util.TrimSpace(lineContent)
+		lineContent = strx.TrimSpace(lineContent)
 		if lineContent != "" {
 			if ok, _ := regexp.MatchString("(\\[).*(\\])", lineContent); ok {
 				// sections

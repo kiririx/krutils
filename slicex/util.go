@@ -1,4 +1,4 @@
-package slice_util
+package slicex
 
 func Remove[T any](s []T, i int) []T {
 	if i >= len(s) || i < 0 {

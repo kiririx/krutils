@@ -1,4 +1,4 @@
-package conf_util
+package confx
 
 type Properties struct {
 	prop map[string]string

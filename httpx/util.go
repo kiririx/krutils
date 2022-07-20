@@ -1,8 +1,8 @@
-package http_util
+package httpx
 
 import (
 	"github.com/kiririx/krutils/common"
-	"github.com/kiririx/krutils/str_util"
+	"github.com/kiririx/krutils/strx"
 	"strings"
 )
 
@@ -14,7 +14,7 @@ func GetURLWithQuery[V common.BaseType](url string, query map[string]V) string {
 			url = url + "?"
 		}
 		for k, v := range query {
-			url = url + k + "=" + str_util.ToStr(v) + "&"
+			url = url + k + "=" + strx.ToStr(v) + "&"
 		}
 		url = url[:len(url)-1]
 	}

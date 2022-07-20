@@ -1,4 +1,4 @@
-package algo_util
+package algox
 
 import (
 	"crypto/md5"

@@ -1,4 +1,4 @@
-package conf_util
+package confx
 
 import (
 	"bufio"

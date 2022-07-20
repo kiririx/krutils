@@ -1,4 +1,4 @@
-package http_util
+package httpx
 
 import "net/http"
 

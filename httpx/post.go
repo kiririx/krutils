@@ -1,17 +1,17 @@
-package http_util
+package httpx
 
 import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/kiririx/krutils/json_util"
+	"github.com/kiririx/krutils/jsonx"
 	"io/ioutil"
 	"net/http"
 	"strings"
 )
 
 func (c *httpClient) PostString(url string, body map[string]any) (string, error) {
-	bodyParams, err := json_util.Map2JSON(body)
+	bodyParams, err := jsonx.Map2JSON(body)
 	if err != nil {
 		return "", errors.New(bodyParamNotValid)
 	}
@@ -54,7 +54,7 @@ func (c *httpClient) PostJSON(url string, body map[string]any) (map[string]any, 
 	if err != nil {
 		return nil, errors.New(fmt.Sprintf("read response body failed, url: {%s}, cause: {%v} ", url, err.Error()))
 	}
-	jsonMap, err := json_util.JSON2Map(string(b))
+	jsonMap, err := jsonx.JSON2Map(string(b))
 	if err != nil {
 		return nil, errors.New(fmt.Sprintf("json to map failed, source: {%s} \n error: {%v}", string(b), err.Error()))
 	}
@@ -62,7 +62,7 @@ func (c *httpClient) PostJSON(url string, body map[string]any) (map[string]any, 
 }
 
 func (c *httpClient) Post(url string, body map[string]any) (*http.Response, error) {
-	bodyParams, err := json_util.Map2JSON(body)
+	bodyParams, err := jsonx.Map2JSON(body)
 	if err != nil {
 		return nil, errors.New(bodyParamNotValid)
 	}

@@ -1,4 +1,4 @@
-package json_util
+package jsonx
 
 import "encoding/json"
 

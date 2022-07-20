@@ -1,4 +1,4 @@
-package str_util
+package strx
 
 import (
 	"fmt"

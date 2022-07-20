@@ -1,11 +1,11 @@
-package convert
+package convertx
 
 import (
-	"github.com/kiririx/krutils/algo_util"
+	"github.com/kiririx/krutils/algox"
 	"strconv"
 )
 
-var RandomInt = algo_util.RandomInt
+var RandomInt = algox.RandomInt
 
 type Integer interface {
 	int | int32 | int8 | int64 | int16 | uint | uint16 | uint8 | uint32 | uint64

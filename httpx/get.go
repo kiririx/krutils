@@ -1,9 +1,9 @@
-package http_util
+package httpx
 
 import (
 	"errors"
 	"fmt"
-	"github.com/kiririx/krutils/json_util"
+	"github.com/kiririx/krutils/jsonx"
 	"io/ioutil"
 	"net/http"
 )
@@ -49,7 +49,7 @@ func (c *httpClient) GetJSON(url string, body map[string]string) (map[string]any
 	if err != nil {
 		return nil, errors.New(fmt.Sprintf("read response body failed, url: {%s}, cause: {%v} ", url, err.Error()))
 	}
-	jsonMap, err := json_util.JSON2Map(string(b))
+	jsonMap, err := jsonx.JSON2Map(string(b))
 	if err != nil {
 		return nil, errors.New(fmt.Sprintf("json to map failed, source: {%s} \n error: {%v}", string(b), err.Error()))
 	}
