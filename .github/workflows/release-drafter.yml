@@ -27,10 +27,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GTOKEN }}
 
-#        with:
-#          name: krutils-go
-#          tag: latest
-#          version: latest
-#          token: ${{secrets.GTOKEN}}
+        with:
+          name: krutils-go
+          tag: latest
+          version: latest
 
 
