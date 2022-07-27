@@ -9,8 +9,8 @@ func DeepCopy(src any, target any) error {
 	if src == nil || target == nil {
 		return errors.New("src or target is nil")
 	}
-	if reflect.TypeOf(target).Kind() != reflect.Pointer {
-		return errors.New("target must be pointer")
+	if reflect.TypeOf(src).Kind() != reflect.Pointer || reflect.TypeOf(target).Kind() != reflect.Pointer {
+		return errors.New("src and target must be pointer")
 	}
 	srcV := src
 	if reflect.TypeOf(src).Kind() == reflect.Pointer {
