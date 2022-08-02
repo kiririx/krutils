@@ -37,3 +37,15 @@ func ForSlice[T any](s []T, f func(i int, v T) (bool, bool)) {
 		}
 	}
 }
+
+func ForMap[K comparable, V any](m map[K]V, f func(k K, v V) (bool, bool)) {
+	for k, v := range m {
+		_continue, _break := f(k, v)
+		if _break {
+			break
+		}
+		if _continue {
+			continue
+		}
+	}
+}
