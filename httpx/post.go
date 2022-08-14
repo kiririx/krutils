@@ -10,7 +10,7 @@ import (
 	"strings"
 )
 
-func (c *httpClient) PostString(url string, body map[string]any) (string, error) {
+func (c *HttpClient) PostString(url string, body map[string]any) (string, error) {
 	bodyParams, err := jsonx.Map2JSON(body)
 	if err != nil {
 		return "", errors.New(bodyParamNotValid)
@@ -31,7 +31,7 @@ func (c *httpClient) PostString(url string, body map[string]any) (string, error)
 	return string(b), nil
 }
 
-func (c *httpClient) PostJSON(url string, body map[string]any) (map[string]any, error) {
+func (c *HttpClient) PostJSON(url string, body map[string]any) (map[string]any, error) {
 	var b []byte
 	if body != nil {
 		var err error
@@ -61,7 +61,7 @@ func (c *httpClient) PostJSON(url string, body map[string]any) (map[string]any, 
 	return jsonMap, nil
 }
 
-func (c *httpClient) Post(url string, body map[string]any) (*http.Response, error) {
+func (c *HttpClient) Post(url string, body map[string]any) (*http.Response, error) {
 	bodyParams, err := jsonx.Map2JSON(body)
 	if err != nil {
 		return nil, errors.New(bodyParamNotValid)
@@ -77,7 +77,7 @@ func (c *httpClient) Post(url string, body map[string]any) (*http.Response, erro
 	return resp, nil
 }
 
-func (c *httpClient) PostFormGetJSON(url string, data map[string]string) (map[string]any, error) {
+func (c *HttpClient) PostFormGetJSON(url string, data map[string]string) (map[string]any, error) {
 	resultMap := make(map[string]any)
 	m := make(map[string][]string)
 	for k, v := range data {

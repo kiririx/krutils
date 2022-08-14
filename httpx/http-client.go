@@ -11,7 +11,7 @@ const (
 	bodyParamNotValid = "body param is not valid"
 )
 
-type httpClient struct {
+type HttpClient struct {
 	client  *http.Client
 	proxy   string
 	headers map[string]string
@@ -24,20 +24,20 @@ type doReq struct {
 	contentType string
 }
 
-func Client() *httpClient {
+func Client() *HttpClient {
 	client := http.DefaultClient
 	client.Timeout = time.Second * 4
-	return &httpClient{
+	return &HttpClient{
 		client: client,
 	}
 }
 
-func (c *httpClient) Timeout(duration time.Duration) *httpClient {
+func (c *HttpClient) Timeout(duration time.Duration) *HttpClient {
 	c.client.Timeout = duration
 	return c
 }
 
-func (c *httpClient) Proxy(proxyUrl string) *httpClient {
+func (c *HttpClient) Proxy(proxyUrl string) *HttpClient {
 	uri, err := url.Parse(proxyUrl)
 	if err != nil {
 		panic(err)
@@ -47,12 +47,12 @@ func (c *httpClient) Proxy(proxyUrl string) *httpClient {
 	return c
 }
 
-func (c *httpClient) Headers(headers map[string]string) *httpClient {
+func (c *HttpClient) Headers(headers map[string]string) *HttpClient {
 	c.headers = headers
 	return c
 }
 
-func (c *httpClient) do(req *doReq) (*http.Response, error) {
+func (c *HttpClient) do(req *doReq) (*http.Response, error) {
 	request, err := http.NewRequest(req.method, req.url, req.body)
 	if err != nil {
 		return nil, err
