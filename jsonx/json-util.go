@@ -11,7 +11,7 @@ func JSON2Map(jsonStr string) (map[string]any, error) {
 	return result, nil
 }
 
-func Map2JSON(m map[string]any) (string, error) {
+func Map2JSON[T any](m map[string]T) (string, error) {
 	b, err := json.Marshal(m)
 	if err != nil {
 		return "", err

@@ -2,11 +2,12 @@ package logx
 
 import (
 	"fmt"
+	"github.com/fatih/color"
 	"log"
 )
 
 func ERR(err error) {
-	log.Println(fmt.Sprintf(`Err: %s`, err.Error()))
+	color.Red("Error: %s", err.Error())
 }
 
 func INFO(s string) {
@@ -14,5 +15,9 @@ func INFO(s string) {
 }
 
 func WARN(s string) {
-	log.Println(fmt.Sprintf("Warn: %s", s))
+	color.Yellow("Warn: %s", s)
+}
+
+func MARK(s string) {
+	color.Green("%s", s)
 }
