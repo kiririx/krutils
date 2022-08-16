@@ -1,6 +1,9 @@
 package copyx
 
-import "testing"
+import (
+	"github.com/kiririx/krutils/structx"
+	"testing"
+)
 
 func TestDeepCopy(t *testing.T) {
 	type Src struct {
@@ -51,7 +54,7 @@ func TestDeepCopy(t *testing.T) {
 		},
 	}
 	dest := Dest{}
-	err := DeepCopy(&src, &dest)
+	err := structx.DeepCopy(src, &dest)
 	if err != nil {
 		t.Error(err)
 	}
