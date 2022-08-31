@@ -98,3 +98,26 @@ func (c *HttpClient) PostFormGetJSON(url string, data map[string]string) (map[st
 	}
 	return resultMap, nil
 }
+
+func (c *HttpClient) PostStringGetJSON(url string, raw string) (map[string]any, error) {
+	var b []byte
+	resp, err := c.do(&doReq{
+		url:         url,
+		method:      http.MethodPost,
+		contentType: "application/json",
+		body:        strings.NewReader(raw),
+	})
+	if err != nil {
+		return nil, errors.New(fmt.Sprintf("http post failed, url: {%s}, cause: {%v} ", url, err.Error()))
+	}
+	defer resp.Body.Close()
+	b, err = ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return nil, errors.New(fmt.Sprintf("read response body failed, url: {%s}, cause: {%v} ", url, err.Error()))
+	}
+	jsonMap, err := jsonx.JSON2Map(string(b))
+	if err != nil {
+		return nil, errors.New(fmt.Sprintf("json to map failed, source: {%s} \n error: {%v}", string(b), err.Error()))
+	}
+	return jsonMap, nil
+}
