@@ -8,7 +8,7 @@ import (
 	"net/http"
 )
 
-func (c *httpClient) Get(url string, query map[string]string) (*http.Response, error) {
+func (c *HttpClient) Get(url string, query map[string]string) (*http.Response, error) {
 	url = GetURLWithQuery(url, query)
 	return c.do(&doReq{
 		url:    url,
@@ -16,7 +16,7 @@ func (c *httpClient) Get(url string, query map[string]string) (*http.Response, e
 	})
 }
 
-func (c *httpClient) GetString(url string, query map[string]string) (string, error) {
+func (c *HttpClient) GetString(url string, query map[string]string) (string, error) {
 	url = GetURLWithQuery(url, query)
 	resp, err := c.do(&doReq{
 		url:         url,
@@ -34,7 +34,7 @@ func (c *httpClient) GetString(url string, query map[string]string) (string, err
 	return string(b), nil
 }
 
-func (c *httpClient) GetJSON(url string, body map[string]string) (map[string]any, error) {
+func (c *HttpClient) GetJSON(url string, body map[string]string) (map[string]any, error) {
 	url = GetURLWithQuery(url, body)
 	resp, err := c.do(&doReq{
 		url:         url,
