@@ -15,6 +15,7 @@ type httpClient struct {
 	client  *http.Client
 	proxy   string
 	headers map[string]string
+	cookies []*http.Cookie
 }
 
 type doReq struct {
@@ -52,6 +53,11 @@ func (c *httpClient) Headers(headers map[string]string) *httpClient {
 	return c
 }
 
+func (c *httpClient) Cookies(cookies []*http.Cookie) *httpClient {
+	c.cookies = cookies
+	return c
+}
+
 func (c *httpClient) do(req *doReq) (*http.Response, error) {
 	request, err := http.NewRequest(req.method, req.url, req.body)
 	if err != nil {
@@ -61,6 +67,11 @@ func (c *httpClient) do(req *doReq) (*http.Response, error) {
 	if c.headers != nil {
 		for k, v := range c.headers {
 			request.Header.Set(k, v)
+		}
+	}
+	if c.cookies != nil {
+		for _, v := range c.cookies {
+			request.AddCookie(v)
 		}
 	}
 	resp, err := c.client.Do(request)
