@@ -1,25 +1,24 @@
-name: Auto Release
+name: Create Release
 
 on:
   push:
     branches: [ master ]
 
 jobs:
-  build:
+  create_release:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Set up Go
-        uses: actions/setup-go@v2
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          go-version: 1.23
-      - name: mod
-        run: go mod tidy
-      - name: Build
-        run: go build -v ./...
-      - name: Create new version
-        run: |
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-          git tag -a v${{ github.run_number }} -m "Auto release version ${{ github.run_number }}"
-          git push origin v${{ github.run_number }}
+          tag_name: v${{ github.run_number }}
+          release_name: Release ${{ github.run_number }}
+          body: |
+            Changes in this Release
+            - Auto-generated release
+          draft: false
+          prerelease: false
