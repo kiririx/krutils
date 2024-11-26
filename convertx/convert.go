@@ -1,33 +1,29 @@
 package convertx
 
 import (
-	"errors"
 	"strconv"
 	"strings"
 	"time"
 )
 
-func StringToInt64(v string) (int64, error) {
-	return strconv.ParseInt(v, 10, 64)
+func StringToInt64(v string) int64 {
+	i, _ := strconv.ParseInt(v, 10, 64)
+	return i
 }
 
-func StringToInt(v string) (int, error) {
-	return strconv.Atoi(v)
+func StringToInt(v string) int {
+	i, _ := strconv.Atoi(v)
+	return i
 }
-func StringToInt8(v string) (int8, error) {
+func StringToInt8(v string) int8 {
 	// 先将字符串转换为 int64
-	i, err := strconv.ParseInt(v, 10, 8)
-	if err != nil {
-		return 0, err
-	}
-
+	i, _ := strconv.ParseInt(v, 10, 8)
 	// 检查是否在 int8 范围内
 	if i < -128 || i > 127 {
-		return 0, errors.New("value out of range for int8")
+		return 0
 	}
-
 	// 转换为 int8 并返回
-	return int8(i), nil
+	return int8(i)
 }
 
 // IntToString 整数转字符串
@@ -36,8 +32,9 @@ func IntToString(i int) string {
 }
 
 // StringToFloat64 字符串转浮点数
-func StringToFloat64(s string) (float64, error) {
-	return strconv.ParseFloat(s, 64)
+func StringToFloat64(s string) float64 {
+	v, _ := strconv.ParseFloat(s, 64)
+	return v
 }
 
 // Float64ToString 浮点数转字符串
@@ -46,12 +43,9 @@ func Float64ToString(f float64) string {
 }
 
 // StringToFloat32 字符串转 float32
-func StringToFloat32(v string) (float32, error) {
-	f, err := strconv.ParseFloat(v, 32)
-	if err != nil {
-		return 0, err
-	}
-	return float32(f), nil
+func StringToFloat32(v string) float32 {
+	f, _ := strconv.ParseFloat(v, 32)
+	return float32(f)
 }
 
 // Float32ToString float32 转字符串
@@ -60,8 +54,9 @@ func Float32ToString(f float32) string {
 }
 
 // StringToBool 字符串转布尔值
-func StringToBool(s string) (bool, error) {
-	return strconv.ParseBool(s)
+func StringToBool(s string) bool {
+	v, _ := strconv.ParseBool(s)
+	return v
 }
 
 // BoolToString 布尔值转字符串
