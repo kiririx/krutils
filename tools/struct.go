@@ -1,12 +1,15 @@
-package structx
+package tools
 
 import (
 	"errors"
 	"reflect"
 )
 
+type Struct struct {
+}
+
 // DeepCopy copy struct to another
-func DeepCopy(src any, target any) error {
+func (receiver *Struct) DeepCopy(src any, target any) error {
 	if src == nil || target == nil {
 		return errors.New("src or target is nil")
 	}
@@ -31,7 +34,7 @@ func DeepCopy(src any, target any) error {
 			tVal := targetElem.FieldByName(name)
 			if tVal.IsValid() && tVal.Kind() == val.Kind() {
 				if val.Kind() == reflect.Struct && tVal.Kind() == reflect.Struct {
-					_ = DeepCopy(val, tVal)
+					_ = receiver.DeepCopy(val, tVal)
 				}
 				tVal.Set(val)
 			}
@@ -39,4 +42,16 @@ func DeepCopy(src any, target any) error {
 		return nil
 	}
 	return nil
+}
+
+// RangeStructField 遍历所有的字段以及内嵌结构体
+func (receiver *Struct) RangeStructField(t reflect.Type, f func(field reflect.StructField)) {
+	for i := 0; i < t.NumField(); i++ {
+		field := t.Field(i)
+		if t.Field(i).Anonymous {
+			receiver.RangeStructField(field.Type, f)
+		} else {
+			f(field)
+		}
+	}
 }

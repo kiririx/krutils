@@ -1,4 +1,4 @@
-package logx
+package tools
 
 import (
 	"fmt"
@@ -6,18 +6,21 @@ import (
 	"log"
 )
 
-func ERR(err error) {
+type Log struct {
+}
+
+func (*Log) ERR(err error) {
 	color.Red("Error: %s", err.Error())
 }
 
-func INFO(s string) {
+func (*Log) INFO(s string) {
 	log.Println(fmt.Sprintf("Info: %s", s))
 }
 
-func WARN(s string) {
+func (*Log) WARN(s string) {
 	color.Yellow("Warn: %s", s)
 }
 
-func MARK(s string) {
+func (*Log) MARK(s string) {
 	color.Green("%s", s)
 }

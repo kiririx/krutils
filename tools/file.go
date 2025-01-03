@@ -1,4 +1,4 @@
-package filex
+package tools
 
 import (
 	"errors"
@@ -7,10 +7,13 @@ import (
 	"strings"
 )
 
+type File struct {
+}
+
 // GetUrlFileExt returns the file extension of the url.
 //
 // for example, input (http://xx?a=1&file=yourfile.png&b=2, ['png','jpg']), the function will return png
-func GetUrlFileExt(filename string, allowExt []string) (string, error) {
+func (*File) GetUrlFileExt(filename string, allowExt []string) (string, error) {
 	fileName := path.Base(filename)
 	reg, err := regexp.Compile("\\.(" + strings.Join(allowExt, "|") + ")")
 	if err != nil {

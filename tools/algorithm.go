@@ -1,4 +1,4 @@
-package algox
+package tools
 
 import (
 	"crypto/md5"
@@ -11,11 +11,14 @@ import (
 	"time"
 )
 
-func Base64Encode(v string) string {
+type Algorithm struct {
+}
+
+func (receive *Algorithm) Base64Encode(v string) string {
 	return base64.StdEncoding.EncodeToString([]byte(v))
 }
 
-func Base64Decode(v string) (string, error) {
+func (receive *Algorithm) Base64Decode(v string) (string, error) {
 	b, err := base64.StdEncoding.DecodeString(v)
 	if err != nil {
 		return "", errors.New("decoding fail")
@@ -23,22 +26,22 @@ func Base64Decode(v string) (string, error) {
 	return string(b), nil
 }
 
-func MD5(v string) string {
+func (receive *Algorithm) MD5(v string) string {
 	return fmt.Sprintf("%x", md5.Sum([]byte(v)))
 }
 
-func Sha256(v string) string {
+func (receive *Algorithm) Sha256(v string) string {
 	h := sha256.New()
 	h.Write([]byte(v))
 	return fmt.Sprintf("%x", h.Sum(nil))
 }
 
-func UUID() string {
+func (receive *Algorithm) UUID() string {
 	v := uuid.NewV4()
 	return fmt.Sprintf("%s", v)
 }
 
-func RandomInt(start, end int) int {
+func (receive *Algorithm) RandomInt(start, end int) int {
 	end += 1
 	if start < 0 || end < 0 {
 		return 0

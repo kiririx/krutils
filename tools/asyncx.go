@@ -1,4 +1,4 @@
-package asyncx
+package tools
 
 import (
 	"fmt"
@@ -6,8 +6,11 @@ import (
 	"sync"
 )
 
+type Async struct {
+}
+
 // WithGoroutine 并发执行f函数
-func WithGoroutine(f func(), count int) {
+func (receive *Async) WithGoroutine(f func(), count int) {
 	wg := sync.WaitGroup{}
 	for i := 0; i < count; i++ {
 		wg.Add(1)
@@ -27,7 +30,7 @@ func WithGoroutine(f func(), count int) {
 //	月份 (1-12)
 //	星期几 (0-7,其中0和7都表示星期日)
 //	* * * * *
-func ScheduleTask(cronStr string, task func()) error {
+func (receive *Async) ScheduleTask(cronStr string, task func()) error {
 	// 创建一个新的cron调度器
 	c := cron.New()
 

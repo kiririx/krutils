@@ -1,4 +1,4 @@
-package sugar
+package ut
 
 func Then[T any](cond bool, v1 T, v2 T) T {
 	if cond {
