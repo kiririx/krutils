@@ -4,7 +4,7 @@ import (
 	"strings"
 )
 
-func NewStringTool() *String {
+func NewString() *String {
 	return &String{}
 }
 
@@ -84,4 +84,22 @@ func (receiver *String) In(s string, stringArray ...string) bool {
 		}
 	}
 	return false
+}
+
+// DefaultIfEmpty 如果字符串 s 为空，则返回 elseStr。
+// 这个方法的主要作用是提供一个安全的方式来处理空字符串，
+// 它允许调用者指定一个默认值，当输入的字符串为空时返回。
+// 参数:
+//
+//	s - 需要检查的字符串。
+//	elseStr - 如果 s 为空时返回的默认字符串。
+//
+// 返回值:
+//
+//	如果 s 为空，返回 elseStr；否则，返回 s。
+func (receiver *String) DefaultIfEmpty(s string, defStr string) string {
+	if s == "" {
+		return defStr
+	}
+	return s
 }

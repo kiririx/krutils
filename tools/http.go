@@ -30,7 +30,7 @@ type doReq struct {
 	contentType string
 }
 
-func Client() *HttpClient {
+func NewHttpClient() *HttpClient {
 	client := http.DefaultClient
 	client.Timeout = time.Second * 4
 	return &HttpClient{

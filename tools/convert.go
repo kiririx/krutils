@@ -202,7 +202,7 @@ func (receiver *Value) Uint32Value() uint32 {
 }
 
 func (receiver *Value) Float64Value() float64 {
-	switch value := any(receiver.v).(type) {
+	switch value := receiver.v.(type) {
 	case int:
 		return float64(value)
 	case int8:
