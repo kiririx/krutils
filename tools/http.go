@@ -262,7 +262,7 @@ func GetURLWithQuery[V any](url string, query map[string]V) string {
 			url = url + "?"
 		}
 		for k, v := range query {
-			url = url + k + "=" + NewValue(v).StringValue() + "&"
+			url = url + k + "=" + Convert(v).StringValue() + "&"
 		}
 		url = url[:len(url)-1]
 	}

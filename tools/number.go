@@ -8,7 +8,7 @@ func NewNumber() *Number {
 }
 
 func (n *Number) DefaultInt64IfZero(v any, def int64) int64 {
-	value := NewValue(v).Int64Value()
+	value := Convert(v).Int64Value()
 	if value == 0 {
 		return def
 	}
@@ -16,7 +16,7 @@ func (n *Number) DefaultInt64IfZero(v any, def int64) int64 {
 }
 
 func (n *Number) DefaultFloat64IfZero(v any, def float64) float64 {
-	value := NewValue(v).Float64Value()
+	value := Convert(v).Float64Value()
 	if value == 0 {
 		return def
 	}

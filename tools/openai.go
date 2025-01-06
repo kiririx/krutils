@@ -5,10 +5,6 @@ import (
 	"time"
 )
 
-type OpenAIConf struct {
-	OpenAI
-}
-
 type OpenAIResult struct {
 	Err     error
 	Result  string
@@ -25,7 +21,7 @@ type OpenAI struct {
 	Temperature float32
 }
 
-func NewOpenAI(conf OpenAIConf) *OpenAI {
+func NewOpenAI(conf OpenAI) *OpenAI {
 	return &OpenAI{
 		APIAddr:     NewString().DefaultIfEmpty(conf.APIAddr, "https://api.openai.com"),
 		APIKey:      conf.APIKey,

@@ -12,7 +12,7 @@ type Value struct {
 	check bool
 }
 
-func NewValue(v any) *Value {
+func Convert(v any) *Value {
 	return &Value{v: v}
 }
 

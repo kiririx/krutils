@@ -5,7 +5,7 @@ import (
 )
 
 func Convert(v any) *tools.Value {
-	return tools.NewValue(v)
+	return tools.Convert(v)
 }
 
 func Algorithm() *tools.Algorithm {
@@ -42,4 +42,8 @@ func Struct() *tools.Struct {
 
 func HttpClient() *tools.HttpClient {
 	return tools.NewHttpClient()
+}
+
+func OpenAI(conf tools.OpenAI) *tools.OpenAI {
+	return tools.NewOpenAI(conf)
 }
