@@ -39,3 +39,7 @@ func JSON() *tools.JSON {
 func Struct() *tools.Struct {
 	return &tools.Struct{}
 }
+
+func HttpClient() *tools.HttpClient {
+	return tools.NewHttpClient()
+}
